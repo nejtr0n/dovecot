@@ -1,0 +1,5 @@
+#!/bin/sh
+
+if test ! -z "$DOVECOT_CONFIG" && test -f "$DOVECOT_CONFIG"; then
+  gomplate < "$DOVECOT_CONFIG" > /etc/dovecot/local.conf
+fi
