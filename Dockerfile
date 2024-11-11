@@ -2,6 +2,7 @@ FROM alpine:3.20.3
 
 ARG S6_OVERLAY_VERSION=3.2.0.2
 ARG DOVECOT_VERSION=2.3.21.1-r0
+ARG GOMPLATE_VERSION=3.11.7-r6
 
 # Create user
 RUN apk add --update --no-cache --virtual .tool-deps \
@@ -20,7 +21,7 @@ RUN apk add --update --no-cache --virtual .tool-deps \
 
 # install and configure dovecot
 RUN apk add --update --no-cache dovecot=${DOVECOT_VERSION} dovecot-lmtpd=${DOVECOT_VERSION} dovecot-pop3d=${DOVECOT_VERSION} dovecot-pgsql=${DOVECOT_VERSION} \
-    gomplate=3.11.7-r6 \
+    gomplate=${GOMPLATE_VERSION} \
     && rm -rf /var/cache/apk/*
 RUN chown -R dovecot:dovecot /etc/ssl/dovecot \
     && sed -i 's/^!include auth-passwdfile.conf.ext/#!include auth-passwdfile.conf.ext/g' /etc/dovecot/conf.d/10-auth.conf
